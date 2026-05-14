@@ -1,0 +1,67 @@
+/* Login Page Styles */
+.login-page {
+  display: flex;
+  min-height: 100vh;
+  background-color: white;
+  font-family: Arial, sans-serif;
+}
+
+.image-side {
+  flex: 7; /* 70% */
+  position: relative;
+  overflow: hidden;
+}
+
+.form-side {
+  flex: 3; /* 30% */
+  display: flex;
+  align-items: center;
+  justifyContent: center;
+  padding: 40px;
+  backgroundColor: #f8fafc;
+}
+
+.image-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("/students.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(225deg, rgba(37, 99, 235, 0.1) 0%, rgba(30, 41, 59, 0.4) 100%);
+}
+
+.image-content {
+  position: relative;
+  height: 100%;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+.mobile-logo {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+/* Responsive Rules */
+@media (max-width: 1023px) {
+  .image-side {
+    display: none !important;
+  }
+  .form-side {
+    flex: 1;
+    width: 100%;
+  }
+  .mobile-logo {
+    display: flex !important;
+  }
+}
