@@ -26,6 +26,11 @@ export const promotionsService = {
     return response.data;
   },
 
+  leaveGroup: async (groupId) => {
+    const response = await api.delete(`/promotions/${groupId}/leave`);
+    return response.data;
+  },
+
   // Simulación de fetching de programas desde edunormas
   getPrograms: async (institutionId) => {
     // Aquí podrías llamar a la API real de edunormas si tienes el endpoint expuesto

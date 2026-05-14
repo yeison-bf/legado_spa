@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Input, useNotification } from '../../../shared/components';
-import { Search, Users, MessageSquare, Plus, Send, ChevronRight, User as UserIcon } from 'lucide-react';
+import { Card, Button, Input, useNotification, ConfirmDialog } from '../../../shared/components';
+import { Search, Users, MessageSquare, Plus, Send, ChevronRight, User as UserIcon, LogOut } from 'lucide-react';
 import { promotionsService } from '../services/promotions.service';
 import { authService } from '../../../shared/services/auth.service';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -11,6 +11,7 @@ const PromotionModule = () => {
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [loading, setLoading] = useState(false);
   const { showNotification } = useNotification();
+  const [confirmLeave, setConfirmLeave] = useState({ open: false, groupId: null });
 
   const fetchMyGroups = async () => {
     try {
@@ -34,6 +35,22 @@ const PromotionModule = () => {
       setActiveView('list');
     } catch (err) {
       showNotification('Error al unirse al grupo', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLeave = async () => {
+    if (!confirmLeave.groupId) return;
+    try {
+      setLoading(true);
+      await promotionsService.leaveGroup(confirmLeave.groupId);
+      showNotification('Has salido de la promoción', 'success');
+      await fetchMyGroups();
+      setActiveView('list');
+      setConfirmLeave({ open: false, groupId: null });
+    } catch (err) {
+      showNotification('Error al salir del grupo', 'error');
     } finally {
       setLoading(false);
     }
@@ -83,6 +100,7 @@ const PromotionModule = () => {
                     setSelectedGroup(item.promotionGroup);
                     setActiveView('chat');
                   }}
+                  onLeave={() => setConfirmLeave({ open: true, groupId: item.promotionGroup.id })}
                 />
               ))
             )}
@@ -107,15 +125,28 @@ const PromotionModule = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
           >
-            <ChatRoom group={selectedGroup} />
+            <ChatRoom 
+              group={selectedGroup} 
+              onLeave={() => setConfirmLeave({ open: true, groupId: selectedGroup.id })} 
+            />
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ConfirmDialog 
+        isOpen={confirmLeave.open}
+        onClose={() => setConfirmLeave({ open: false, groupId: null })}
+        onConfirm={handleLeave}
+        title="Salir de la Promoción"
+        message="¿Estás seguro de que deseas salir de este grupo? Ya no podrás ver los mensajes ni participar en el chat."
+        confirmText="Sí, Salir"
+        variant="danger"
+      />
     </div>
   );
 };
 
-const GroupCard = ({ group, onChat }) => (
+const GroupCard = ({ group, onChat, onLeave }) => (
   <Card style={{ padding: 0, overflow: 'hidden' }}>
     <div style={{ padding: '24px', background: 'linear-gradient(45deg, #2563eb, #06b6d4)', color: 'white' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -143,9 +174,12 @@ const GroupCard = ({ group, onChat }) => (
           </span>
         )}
       </div>
-      <Button variant="secondary" size="sm" icon={MessageSquare} onClick={onChat}>
-        Chat Grupal
-      </Button>
+      <div style={{ display: 'flex', gap: '8px' }}>
+        <Button variant="danger" size="sm" icon={LogOut} onClick={onLeave} style={{ padding: '8px' }} />
+        <Button variant="secondary" size="sm" icon={MessageSquare} onClick={onChat}>
+          Chat Grupal
+        </Button>
+      </div>
     </div>
   </Card>
 );
@@ -203,7 +237,7 @@ const SearchForm = ({ onJoin, loading }) => {
   );
 };
 
-const ChatRoom = ({ group }) => {
+const ChatRoom = ({ group, onLeave }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -248,6 +282,9 @@ const ChatRoom = ({ group }) => {
             <span style={{ fontSize: '12px', color: '#16a34a', fontWeight: 600 }}>Online</span>
           </div>
         </div>
+        <Button variant="danger" size="sm" icon={LogOut} onClick={onLeave}>
+          Salir del Grupo
+        </Button>
       </div>
 
       {/* Messages area */}

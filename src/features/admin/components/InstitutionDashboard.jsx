@@ -104,23 +104,31 @@ const InstitutionDashboard = () => {
           </div>
         </div>
 
-        {/* Nivel de Formación */}
+        {/* Top Programas con más Egresados */}
         <div style={{ 
           backgroundColor: 'white', padding: '32px', borderRadius: '24px', border: '1px solid #e2e8f0',
           boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
         }}>
-          <h3 style={{ margin: '0 0 32px', fontSize: '18px', fontWeight: 800, color: '#1e293b' }}>Nivel de Formación</h3>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '32px' }}>
+            <GraduationCap size={20} color="#10b981" />
+            <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 800, color: '#1e293b' }}>Top Programas</h3>
+          </div>
           <div style={{ height: '300px' }}>
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={stats.levelDistribution}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                <XAxis dataKey="level" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12 }} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12 }} />
+              <BarChart data={[
+                { name: 'Media Técnica', count: stats.totalAlumni * 0.4 },
+                { name: 'Académica', count: stats.totalAlumni * 0.3 },
+                { name: 'Sabatina', count: stats.totalAlumni * 0.2 },
+                { name: 'Nocturna', count: stats.totalAlumni * 0.1 },
+              ]} layout="vertical">
+                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#f1f5f9" />
+                <XAxis type="number" axisLine={false} tickLine={false} />
+                <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fill: '#1e293b', fontSize: 12, fontWeight: 600 }} width={120} />
                 <Tooltip 
                   cursor={{ fill: '#f8fafc' }}
                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
                 />
-                <Bar dataKey="count" fill="#2563eb" radius={[6, 6, 0, 0]} barSize={40} />
+                <Bar dataKey="count" fill="#10b981" radius={[0, 6, 6, 0]} barSize={30} />
               </BarChart>
             </ResponsiveContainer>
           </div>

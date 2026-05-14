@@ -105,7 +105,6 @@ const DashboardMain = () => {
             <>
               <NavItem icon={<Home size={20} />} label="Inicio" active={currentMenu === 'home'} onClick={() => handleMenuChange('home')} />
               <NavItem icon={<UserCircle size={20} />} label="Mi Perfil" active={currentMenu === 'profile'} onClick={() => handleMenuChange('profile')} />
-              <NavItem icon={<LayoutDashboard size={20} />} label="Resumen" active={currentMenu === 'overview'} onClick={() => handleMenuChange('overview')} />
               <NavItem icon={<Megaphone size={20} />} label="Promoción" active={currentMenu === 'promo'} onClick={() => handleMenuChange('promo')} />
             </>
           )}
