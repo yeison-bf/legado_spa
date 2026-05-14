@@ -1,0 +1,2 @@
+VITE_API_LOGIN_URL=http://localhost:3001
+VITE_API_LEGADO_URL=http://localhost:3001
