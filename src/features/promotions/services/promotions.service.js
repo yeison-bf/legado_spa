@@ -31,15 +31,9 @@ export const promotionsService = {
     return response.data;
   },
 
-  // Simulación de fetching de programas desde edunormas
-  getPrograms: async (institutionId) => {
-    // Aquí podrías llamar a la API real de edunormas si tienes el endpoint expuesto
-    // Por ahora, devolvemos una lista estandarizada
-    return [
-      { id: 1, name: 'Educación Media (10° - 11°)' },
-      { id: 2, name: 'Formación Complementaria' },
-      { id: 3, name: 'Básica Secundaria' },
-      { id: 4, name: 'Nocturna / Sabatina' },
-    ];
+  // Obtención de programas desde nuestro backend (sincronizados con edunormas)
+  getPrograms: async () => {
+    const response = await api.get('/programs');
+    return response.data;
   }
 };
