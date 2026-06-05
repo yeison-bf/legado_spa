@@ -37,7 +37,7 @@ const LoginPage = () => {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <img
-                  src={logo}  // Cambia por la ruta de tu imagen
+                  src="public/logo.png"  // Cambia por la ruta de tu imagen
                   alt="Logo LEGADO"
                   style={{
                     width: '40px',
