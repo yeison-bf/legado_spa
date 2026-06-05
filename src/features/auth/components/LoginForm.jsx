@@ -14,7 +14,7 @@ const LoginForm = ({ onSubmit }) => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -27,24 +27,25 @@ const LoginForm = ({ onSubmit }) => {
       }}
     >
       <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-        <div style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '64px',
-          height: '64px',
-          backgroundColor: '#eff6ff',
-          marginBottom: '16px',
-          color: '#2563eb'
-        }}>
-          <GraduationCap size={32} />
+        <div >
+          <img
+            src="public/logo.png"  // Cambia por la ruta de tu imagen
+            alt="Logo LEGADO"
+            style={{
+              width: '140px',
+              height: '140px',
+              objectFit: 'contain',  // o 'cover' dependiendo de cómo quieras que se vea
+              borderRadius: '10px'   // opcional, si quieres mantener las esquinas redondeadas
+            }}
+          />
         </div>
         <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', marginBottom: '8px' }}>Bienvenido de nuevo</h1>
         <p style={{ color: '#64748b', fontSize: '15px' }}>Accede a la plataforma de egresados Legado</p>
       </div>
 
+
       <form onSubmit={handleSubmit}>
-        <Input 
+        <Input
           label="Usuario o correo electrónico"
           icon={User}
           type="text"
@@ -54,7 +55,7 @@ const LoginForm = ({ onSubmit }) => {
           required
         />
 
-        <Input 
+        <Input
           label="Contraseña"
           icon={Lock}
           type="password"

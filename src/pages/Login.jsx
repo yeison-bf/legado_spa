@@ -11,7 +11,7 @@ const LoginPage = () => {
     try {
       console.log('Logging in...', data);
       await authService.login(data.email, data.password);
-      
+
       const user = authService.getUser();
       // Redirigir segun el rol del token decodificado
       if (user?.role === 'ADMIN') {
@@ -31,11 +31,20 @@ const LoginPage = () => {
       <div className="image-side">
         <div className="image-bg">
           <div className="image-overlay" />
-          
+
           <div className="image-content">
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ width: '40px', height: '40px', backgroundColor: 'white', borderRadius: '10px' }}></div>
+                <img
+                  src="public/logo.png"  // Cambia por la ruta de tu imagen
+                  alt="Logo LEGADO"
+                  style={{
+                    width: '40px',
+                    height: '40px',
+                    objectFit: 'contain',  // o 'cover' dependiendo de cómo quieras que se vea
+                    borderRadius: '10px'   // opcional, si quieres mantener las esquinas redondeadas
+                  }}
+                />
                 <span style={{ fontSize: '24px', fontWeight: '800', letterSpacing: '-0.5px' }}>LEGADO</span>
               </div>
             </div>
@@ -66,11 +75,7 @@ const LoginPage = () => {
           </div>
 
           <LoginForm onSubmit={handleLogin} />
-          
-          <div style={{ marginTop: '32px', textAlign: 'center', fontSize: '14px', color: '#64748b' }}>
-            ¿Eres egresado y no tienes cuenta? <br />
-            <Link to="/register" style={{ color: '#2563eb', fontWeight: 700, textDecoration: 'none' }}>Regístrate aquí</Link>
-          </div>
+
         </div>
       </div>
     </div>
