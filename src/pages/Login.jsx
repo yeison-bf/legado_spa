@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { LoginForm } from '../features/auth';
 import { authService } from '../shared/services/auth.service';
 import '../App.css';
+import logo from '../../public/logo.png'
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const LoginPage = () => {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <img
-                  src="public/logo.png"  // Cambia por la ruta de tu imagen
+                  src={logo}  // Cambia por la ruta de tu imagen
                   alt="Logo LEGADO"
                   style={{
                     width: '40px',
