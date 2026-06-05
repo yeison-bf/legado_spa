@@ -39,17 +39,16 @@ const LoginForm = ({ onSubmit }) => {
             }}
           />
         </div>
-        <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1e293b', marginBottom: '8px' }}>Bienvenido de nuevo</h1>
         <p style={{ color: '#64748b', fontSize: '15px' }}>Accede a la plataforma de egresados Legado</p>
       </div>
 
 
       <form onSubmit={handleSubmit}>
         <Input
-          label="Usuario o correo electrónico"
+          label="Usuario"
           icon={User}
           type="text"
-          placeholder="Ingrese su usuario o correo electrónico"
+          placeholder="Ingrese su usuario"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required

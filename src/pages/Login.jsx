@@ -8,9 +8,9 @@ import logo from '../../public/logo.png'
 const LoginPage = () => {
   const navigate = useNavigate();
 
+  console.log('Logging in...', logo);
   const handleLogin = async (data) => {
     try {
-      console.log('Logging in...', data);
       await authService.login(data.email, data.password);
 
       const user = authService.getUser();
@@ -69,12 +69,6 @@ const LoginPage = () => {
       {/* Right Side: Login Form (30%) */}
       <div className="form-side">
         <div style={{ width: '100%', maxWidth: '400px' }}>
-          {/* Mobile Logo */}
-          <div className="mobile-logo">
-            <div style={{ width: '32px', height: '32px', backgroundColor: '#2563eb', borderRadius: '8px' }}></div>
-            <span style={{ fontSize: '20px', fontWeight: '800', color: '#1e293b' }}>LEGADO</span>
-          </div>
-
           <LoginForm onSubmit={handleLogin} />
 
         </div>
